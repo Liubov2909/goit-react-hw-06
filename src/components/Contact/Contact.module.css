@@ -11,8 +11,11 @@
   
 }
 
-.text {
-  justify-content: space-between;
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
 }
 
 .list {
