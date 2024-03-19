@@ -3,24 +3,25 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contactsSlice";
 import * as Yup from "yup";
+import { useId } from "react";
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Required"),
+  number: Yup.string()
+    .min(3, "Too short!")
+    .max(50, "Too long!")
+    .required("Required"),
+});
 
 export default function ContactForm() {
+  const nameFieldId = useId();
+  const numberFieldIId = useId();
   const dispatch = useDispatch();
 
   const initialValues = { name: "", number: "" };
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-
-      .min(3, "Too short!")
-      .max(50, "Too long!")
-      .required("Required"),
-    number: Yup.string()
-
-      .min(3, "Too short!")
-      .max(50, "Too long!")
-      .required("Required"),
-  });
 
   function handleSubmit(values, actions) {
     dispatch(addContact(values));
@@ -36,7 +37,12 @@ export default function ContactForm() {
       <Form className={css.form}>
         <div className={css.container}>
           <label className={css.label}>Name</label>
-          <Field className={css.input} type="text" name="name" />
+          <Field
+            className={css.input}
+            type="text"
+            name="name"
+            id={nameFieldId}
+          />
           <ErrorMessage name="name" as="span" className="css.error" />
         </div>
         <div className={css.container}>
@@ -46,6 +52,7 @@ export default function ContactForm() {
             className={css.input}
             type="tel"
             name="number"
+            id={numberFieldIId}
             pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
             placeholder="000-00-00"
           />
@@ -58,24 +65,3 @@ export default function ContactForm() {
     </Formik>
   );
 }
-
-// function FormInput({ id, type, name, pattern, placeholder }) {
-//   return (
-//     <div className={css.container}>
-//       <label htmlFor={id} className={css.label}>
-//         {""}
-//       </label>
-//       <Field
-//         className={css.input}
-//         type={type}
-//         name={name}
-//         id={id}
-//         pattern={pattern}
-//         placeholder={placeholder}
-//       />
-//       <span className={css.error}>
-//         <ErrorMessage name={name} as="span" />
-//       </span>
-//     </div>
-//   );
-// }

@@ -23,15 +23,3 @@ export default function ContactList() {
     </ul>
   );
 }
-
-// const ContactList = ({ contacts, onDelete }) => {
-//   return (
-//     <ul className={css.list}>
-//       {contacts.map((contact) => (
-//         <Contact key={contact.id} contact={contact} onDelete={onDelete} />
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default ContactList;
